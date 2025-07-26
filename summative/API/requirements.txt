@@ -1,0 +1,22 @@
+# Student Performance Prediction API Requirements
+# FastAPI and server dependencies
+fastapi==0.104.1
+uvicorn[standard]==0.24.0
+pydantic==2.5.0
+
+# CORS middleware (included in FastAPI but listed for clarity)
+# fastapi already includes starlette which provides CORS
+
+# Machine Learning and Data Processing
+scikit-learn==1.3.2
+pandas==2.1.4
+numpy==1.24.4
+joblib==1.3.2
+matplotlib==3.8.0 
+python-multipart==0.0.6  # For form data handling
+python-jose==3.3.0       # For JWT tokens if needed in future
+passlib==1.7.4           # For password hashing if auth needed
+
+# Development dependencies (optional)
+pytest==7.4.3           # For testing
+requests==2.31.0        # For testing API calls
