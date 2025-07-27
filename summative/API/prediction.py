@@ -3,7 +3,7 @@
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel, Field, validator
+from pydantic import BaseModel, Field, field_validator
 import joblib
 import pandas as pd
 import numpy as np
@@ -127,35 +127,40 @@ class StudentInput(BaseModel):
         description="Hours of physical activity per week (0-15 hours)"
     )
     
-    @validator('parental_involvement')
+    @field_validator('parental_involvement')
+    @classmethod
     def validate_parental_involvement(cls, v):
         allowed_values = ['Low', 'Medium', 'High']
         if v not in allowed_values:
             raise ValueError(f'parental_involvement must be one of {allowed_values}')
         return v
     
-    @validator('access_to_resources')
+    @field_validator('access_to_resources')
+    @classmethod
     def validate_access_to_resources(cls, v):
         allowed_values = ['Low', 'Medium', 'High']
         if v not in allowed_values:
             raise ValueError(f'access_to_resources must be one of {allowed_values}')
         return v
     
-    @validator('family_income')
+    @field_validator('family_income')
+    @classmethod
     def validate_family_income(cls, v):
         allowed_values = ['Low', 'Medium', 'High']
         if v not in allowed_values:
             raise ValueError(f'family_income must be one of {allowed_values}')
         return v
     
-    @validator('parental_education_level')
+    @field_validator('parental_education_level')
+    @classmethod
     def validate_parental_education_level(cls, v):
         allowed_values = ['High School', 'College', 'Postgraduate']
         if v not in allowed_values:
             raise ValueError(f'parental_education_level must be one of {allowed_values}')
         return v
     
-    @validator('internet_access')
+    @field_validator('internet_access')
+    @classmethod
     def validate_internet_access(cls, v):
         allowed_values = ['Yes', 'No']
         if v not in allowed_values:
@@ -182,7 +187,7 @@ class HealthResponse(BaseModel):
     """Health check response model."""
     status: str
     message: str
-    model_loaded: bool
+    is_model_loaded: bool
 
 # API Routes
 
@@ -206,7 +211,7 @@ async def health_check():
     return HealthResponse(
         status="healthy" if model_loaded else "degraded",
         message="API is running and model is loaded" if model_loaded else "API is running but model not loaded",
-        model_loaded=model_loaded
+        is_model_loaded=model_loaded
     )
 
 @app.post("/predict", response_model=PredictionResponse)
