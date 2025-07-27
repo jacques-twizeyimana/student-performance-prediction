@@ -15,16 +15,6 @@ app = FastAPI(
     title="Student Performance Prediction API",
     description="""
     This API predicts student exam performance based on various socioeconomic and educational factors.
-    
-    **Mission**: Improve access to quality education for low-income families and rural households
-    by identifying key factors that influence student success and providing actionable insights
-    for educational interventions.
-    
-    **Features**:
-    - Predicts student exam scores (0-100)
-    - Identifies equity risk factors for disadvantaged students
-    - Provides personalized recommendations for improvement
-    - Supports evidence-based educational policy decisions
     """,
     version="1.0.0",
     contact={
